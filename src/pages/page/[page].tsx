@@ -1,10 +1,11 @@
 import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import { WP_REST_API_Posts } from "wp-types";
 
-import { Post } from "~compositions/Post";
+import { PostListItem } from "~compositions/PostListItem";
 import { Layout } from "~layouts/index";
 
 type Props = {
@@ -70,13 +71,18 @@ export default function Home({ stickyPosts, posts, page, totalPages }: Props) {
 
   return (
     <Layout>
-      {stickyPosts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      <Head>
+        <title>WordPress Next.js Demo</title>
+      </Head>
 
+      <div className="post-loop-wrap">
+        {stickyPosts.map((post) => (
+          <PostListItem key={post.id} post={post} />
+        ))}
+        {posts.map((post) => (
+          <PostListItem key={post.id} post={post} />
+        ))}
+      </div>
       {renderPagination()}
     </Layout>
   );

@@ -17,13 +17,12 @@
     "paths": {
       "~compositions/*": ["src/components/compositions/*"],
       "~elements/*": ["src/components/elements/*"],
-      "~layouts/*": ["src/components/layouts/*"],
-      "~standalone/*": ["src/components/standalone/*"],
       "~hooks/*": ["src/components/hooks/*"],
-      "~graphql/*": ["src/graphql/*"],
-      "~generated/*": ["src/generated/*"],
+      "~layouts/*": ["src/components/layouts/*"],
       "~lib/*": ["src/lib/*"],
       "~pages/*": ["src/pages/*"],
+      "~prevals/*": ["src/components/prevals/*"],
+      "~standalone/*": ["src/components/standalone/*"],
       "~types/*": ["src/types/*"],
       "~/*": ["./src/*"]
     }

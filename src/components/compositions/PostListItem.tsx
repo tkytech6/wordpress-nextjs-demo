@@ -10,7 +10,7 @@ type Props = {
   post: WP_REST_API_Post;
 };
 
-export const Post: React.VFCX<Props> = ({ post }) => {
+export const PostListItem: React.VFCX<Props> = ({ post }) => {
   const renderThumbnail = () => {
     const media: any = post?._embedded?.["wp:featuredmedia"]?.[0];
     if (!media) return null;
@@ -18,7 +18,7 @@ export const Post: React.VFCX<Props> = ({ post }) => {
     const [width, height] = aspectratio.resize(media.media_details.width, media.media_details.height, 304, 214);
     return (
       <div className="post-thumbnail">
-        <Link href={media.link}>
+        <Link href={`/${post.slug}`}>
           <a>
             <Image height={height} src={media.source_url} width={width} />
           </a>
@@ -44,7 +44,7 @@ export const Post: React.VFCX<Props> = ({ post }) => {
           </li>
         </ul>
         <h2 className="post-title">
-          <Link href={post.link}>
+          <Link href={`/${post.slug}`}>
             <a>{post.title.rendered}</a>
           </Link>
         </h2>
@@ -55,7 +55,7 @@ export const Post: React.VFCX<Props> = ({ post }) => {
         <div dangerouslySetInnerHTML={{ __html }} />
         {moreContent && (
           <p>
-            <Link href={post.link}>
+            <Link href={`/${post.slug}`}>
               <a className="more-link">続きを読む</a>
             </Link>
           </p>
