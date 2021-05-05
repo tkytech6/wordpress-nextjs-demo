@@ -7,6 +7,6 @@ module.exports = withNextPluginPreval({
     webpack5: true
   },
   images: {
-    domains: ["test-blog.local"],
+    domains: ["test-blog.local", "silverbobcat20.sakura.ne.jp"],
   },
 });
