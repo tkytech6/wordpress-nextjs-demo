@@ -1,10 +1,5 @@
-import axios from "axios";
 import Head from "next/head";
 import React from "react";
-
-axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_WP_BASE_URL}/wp-json/wp/v2/`;
-
-type Props = {};
 
 function MyApp({ Component, pageProps }) {
   return (

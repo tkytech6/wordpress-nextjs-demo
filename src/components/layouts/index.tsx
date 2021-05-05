@@ -36,7 +36,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
               <div className="side-widget-area">
                 <div className="widget_search side-widget" id="search-2">
                   <div className="side-widget-inner">
-                    <form action="http://test-blog.local/" id="searchform" method="get" role="search">
+                    <form action="/search" id="searchform" method="get" role="search">
                       <div>
                         <input id="s" name="s" type="text" />
                         <button id="searchsubmit" type="submit">
@@ -54,7 +54,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
                     <ul>
                       {latestPosts.map((post) => (
                         <li key={post.id}>
-                          <Link href={post.link}>
+                          <Link href={`/${post.slug}`}>
                             <a>{post.title.rendered}</a>
                           </Link>
                         </li>
@@ -78,7 +78,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
                     <ul>
                       {categories.map((category) => (
                         <li key={category.id}>
-                          <Link href={category.link}>
+                          <Link href={`/category/${category.name}`}>
                             <a>{category.name}</a>
                           </Link>
                         </li>

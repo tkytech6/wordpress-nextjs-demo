@@ -22,7 +22,7 @@
       "~lib/*": ["src/lib/*"],
       "~pages/*": ["src/pages/*"],
       "~prevals/*": ["src/components/prevals/*"],
-      "~standalone/*": ["src/components/standalone/*"],
+      "~standalone/*": ["src/components/pages/*"],
       "~types/*": ["src/types/*"],
       "~/*": ["./src/*"]
     }

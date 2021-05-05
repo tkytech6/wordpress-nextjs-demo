@@ -1,4 +1,3 @@
-import axios from "axios";
 import { format } from "date-fns";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
@@ -6,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { WP_REST_API_Post, WP_REST_API_Posts, WP_REST_API_Terms } from "wp-types";
 
+import { axios } from "~/libs/axios";
 import { Breadcrumb } from "~compositions/Breadcrumb";
 import { Layout } from "~layouts/index";
 
