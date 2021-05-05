@@ -6,10 +6,9 @@ import React from "react";
 import { WP_REST_API_Categories, WP_REST_API_Posts, WP_REST_API_Tags } from "wp-types";
 
 import { axios } from "~/libs/axios";
+import { Breadcrumb } from "~compositions/Breadcrumb";
 import { PostListItem } from "~compositions/PostListItem";
 import { Layout } from "~layouts/index";
-
-import { Breadcrumb } from "../compositions/Breadcrumb";
 
 type Props = {
   category?: string;
@@ -66,7 +65,7 @@ const fetchTagId = async (slug: string) => {
 };
 
 export const fetchPosts = async (params = {}) => {
-  const { data, headers } = await axios.get<WP_REST_API_Posts>("/posts", { params: { ...params, per_page: 1 } });
+  const { data, headers } = await axios.get<WP_REST_API_Posts>("/posts", { params });
   return { posts: data, totalPages: headers["x-wp-totalpages"] };
 };
 
