@@ -1,1 +1,1 @@
-export { default, getStaticProps, getStaticPaths } from "~/components/pages/Posts";
+export { default, getStaticProps, getStaticPaths } from "~pages/Posts";

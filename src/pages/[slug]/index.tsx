@@ -20,11 +20,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const { data } = await axios.get<WP_REST_API_Posts>("/posts", { params: { _embed: 1, slug: context.params.slug } });
+  if (data.length === 0) return { notFound: true };
 
   return {
-    props: {
-      post: data[0],
-    },
+    props: { post: data[0] },
     revalidate: 1,
   };
 };

@@ -30,38 +30,46 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const page = parseInt(String(context.params?.page)) || 1;
 
-  const category = context.params?.category ? String(context.params.category) : null;
-  const categoryId = category ? await fetchCategoryId(category) : null;
+  try {
+    const category = context.params?.category ? String(context.params.category) : null;
+    const categoryId = category ? await fetchCategoryId(category) : null;
 
-  const tag = context.params?.tag ? String(context.params.tag) : null;
-  const tagId = tag ? await fetchTagId(tag) : null;
+    const tag = context.params?.tag ? String(context.params.tag) : null;
+    const tagId = tag ? await fetchTagId(tag) : null;
 
-  const hasSticky = !categoryId && !tagId && page === 1;
+    const hasSticky = !categoryId && !tagId && page === 1;
+    const stickyPostsResponse = hasSticky ? await fetchPosts({ _embed: 1, sticky: 1 }) : { posts: [] };
 
-  const postsResponse = await fetchPosts({ _embed: 1, categories: categoryId, page, tags: tagId });
-  const stickyPostsResponse = hasSticky ? await fetchPosts({ _embed: 1, sticky: 1 }) : { posts: [] };
+    const postsResponse = await fetchPosts({ _embed: 1, categories: categoryId, page, tags: tagId });
 
-  return {
-    props: {
-      category,
-      page,
-      posts: postsResponse.posts,
-      stickyPosts: stickyPostsResponse.posts,
-      tag,
-      totalPages: parseInt(postsResponse.totalPages),
-    },
-    revalidate: 1,
-  };
+    return {
+      props: {
+        category,
+        page,
+        posts: postsResponse.posts,
+        stickyPosts: stickyPostsResponse.posts,
+        tag,
+        totalPages: parseInt(postsResponse.totalPages),
+      },
+      revalidate: 1,
+    };
+  } catch {
+    return { notFound: true };
+  }
 };
 
 const fetchCategoryId = async (slug: string) => {
   const { data } = await axios.get<WP_REST_API_Categories>("/categories", { params: { slug } });
-  return data[0]?.id;
+  if (!data[0]) throw new Error("Category Not Found");
+
+  return data[0].id;
 };
 
 const fetchTagId = async (slug: string) => {
   const { data } = await axios.get<WP_REST_API_Tags>("/tags", { params: { slug } });
-  return data[0]?.id;
+  if (!data[0]) throw new Error("Tag Not Found");
+
+  return data[0].id;
 };
 
 export const fetchPosts = async (params = {}) => {
